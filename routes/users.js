@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models').User;
 const Role = require('../models').Role;
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   User.findAll({
     include: [{ model: Role }],
