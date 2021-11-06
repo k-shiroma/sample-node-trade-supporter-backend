@@ -221,7 +221,7 @@ npx nodemon --version
     # 例）Userモデルのサンプルユーザ追加
     sequelize seed:generate --name sample-users
     ```
-- テーブル名/カラム名をスネークケース(aaa_bbb)にしたい場合  
+- テーブル名/カラム名をスネークケース(aaa_bbb)にしたい  
     モデル作成時に ```--underscored``` 追加
     ```sh
     sequelize model:generate \
@@ -282,3 +282,58 @@ npx nodemon --version
 			  ...
 			};
             ```
+    - テーブル間のマッピング、関連付けしたい  
+      | 関連 | 親モデルA | 子モデルB | 外部キーの場所 |
+      | :-: | :-- | :-- | :-- |
+      | 1:1 | A.hasOne(B) | B.belongsTo(A) | B |
+      | 1:N | A.hasMany(B) | B.belongsTo(A) | B |
+      | N:M | A.belongsToMany(B) | B.belongsToMany(A) | AB(関連テーブル) |
+        - 1:1
+            ```js
+            // Aモデルの associate メソッド内に記述
+            A.hasOne(models.B, {
+                foreignKey: 'aId'
+            })
+            // Bモデルの associate メソッド内に記述
+            B.belongsTo(models.A, {
+                foreignKey: 'aId'
+            })
+            ```
+        - 1:N
+            ```js
+            // Aモデルの associate メソッド内に記述
+            A.hasMany(models.B, {
+                foreignKey: 'aId'
+            })
+            // Bモデルの associate メソッド内に記述
+            B.belongsTo(models.A)
+            }
+            ```
+        - N:M
+            ```js
+            // Aモデルにカラム追加
+            bId: {
+              type: DataTypes.INTEGER,
+              references: {
+                model: B,
+                key: 'id'
+              }
+            },
+            // Bモデルにカラム追加
+            aId: {
+              type: DataTypes.INTEGER,
+              references: {
+                model: A,
+                key: 'id'
+              }
+            },
+            // Aモデルの associate メソッド内に記述
+            A.belongsToMany(models.B, {
+                through: 'ABs'  // 関連テーブル名
+            })
+            // Bモデルの associate メソッド内に記述
+            B.belongsToMany(models.A, {
+                through: 'ABs'
+            })
+            ```
+

@@ -9,13 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       itemId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       recipeId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       quantity: {
-        type: Sequelize.FLOAT
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
