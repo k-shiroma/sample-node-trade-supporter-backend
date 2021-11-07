@@ -1,9 +1,7 @@
 'use strict';
-
-const { Model } = require('sequelize');
-const Item = require('../models').Item;
-const Recipe = require('../models').Recipe;
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Material extends Model {
     static associate(models) {
@@ -16,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Item,
+        model: Model.Item,
         key: 'id'
       }
     },
@@ -24,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Recipe,
+        model: Model.Recipe,
         key: 'id'
       }
     },

@@ -1,14 +1,13 @@
 'use strict';
-
-const { Model } = require('sequelize');
-const Item = require('../models').Item;
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Recipe extends Model {
     static associate(models) {
       Recipe.belongsTo(models.Item);
       Recipe.hasMany(models.Material, {
-        foreignKey: 'itemId'
+        foreignKey: 'recipeId'
       })
     }
   };
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Item,
+        model: Model.Item,
         key: 'id'
       }
     },
