@@ -9,18 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Price.init({
-    itemId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Model.Item,
-        key: 'id'
-      }
-    },
     price: DataTypes.FLOAT,
     checkedAt: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      // defaultValue: Sequelize.NOW // Date型では動作しない
     }
   }, {
     sequelize,

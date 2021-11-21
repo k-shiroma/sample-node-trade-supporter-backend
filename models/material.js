@@ -10,22 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Material.init({
-    itemId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Model.Item,
-        key: 'id'
-      }
-    },
-    recipeId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Model.Recipe,
-        key: 'id'
-      }
-    },
     quantity: DataTypes.INTEGER
   }, {
     sequelize,

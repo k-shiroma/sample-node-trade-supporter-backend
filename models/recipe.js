@@ -12,14 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Recipe.init({
-    itemId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Model.Item,
-        key: 'id'
-      }
-    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
